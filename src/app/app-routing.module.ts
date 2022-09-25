@@ -4,14 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { PagesRoutingModule } from './pages/pages.routing';
 import { AuthRoutingModule } from './auth/auth.routing.';
 
-import { ErrorfoundComponent } from './errorfound/errorfound.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 
 const routes: Routes =[
   // path: '/dashboard' PagesRouting 
   // path: '/auth' AuthRouting 
   {path:'',redirectTo:'/dashboard',pathMatch:'full'},
-  {path:'**',component:ErrorfoundComponent},
+  {path:'**',component:ErrorPageComponent},
 ];
 
 @NgModule({
