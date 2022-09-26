@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GraficaOneComponent } from './grafica-one/grafica-one.component';
@@ -13,6 +14,7 @@ const routes: Routes =[
       {path:'',component:DashboardComponent},
       {path:'progress',component:ProgressComponent},
       {path:'grafica-one',component:GraficaOneComponent},
+      {path:'account-settings',component:AccountSettingsComponent},
     ]
   },
 ];
