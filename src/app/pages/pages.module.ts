@@ -15,8 +15,6 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 
-
-
 @NgModule({
   declarations: [
     DashboardComponent,
