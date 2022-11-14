@@ -42,7 +42,6 @@ export class PerfilComponent implements OnInit {
     const reader = new FileReader();
     const url64 = reader.readAsDataURL(file);
     reader.onloadend=()=>{
-     // console.log(reader.result);
       this.imgTemp=reader.result;
     }
 

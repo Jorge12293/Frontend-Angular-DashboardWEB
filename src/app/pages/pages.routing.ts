@@ -5,6 +5,9 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { GraficaOneComponent } from './grafica-one/grafica-one.component';
+import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
+import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { PagesComponent } from './pages.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -24,6 +27,11 @@ const routes: Routes =[
       {path:'promesas',component:PromesasComponent, data:{titulo:'Promesas'}},
       {path:'rxjs',component:RxjsComponent, data:{titulo:'Rxjs'}},
       {path:'perfil',component:PerfilComponent, data:{titulo:'Perfil de Usuario'}},
+      
+      //Mantenimientos
+      {path:'usuarios',component:UsuariosComponent, data:{titulo:'Usuario de la Aplicación'}},
+      {path:'hospitales',component:HospitalesComponent, data:{titulo:'Hopsitales de la Aplicación'}},
+      {path:'medicos',component:MedicosComponent, data:{titulo:'Medicos de la Aplicación'}},
     ]
   },
 ];

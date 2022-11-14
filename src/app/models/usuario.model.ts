@@ -1,4 +1,3 @@
-import { ignoreElements } from "rxjs";
 import { environment } from "src/environments/environment";
 
 const base_url=environment.base_url;
@@ -15,6 +14,9 @@ export class Usuario{
     ){}
 
     get imagenUrl(){
+        if(!this.img){
+            return `${base_url}/uploads/usuarios/no-image.png`;
+        }
         
         if(this.img?.includes('https')){
             return this.img;
