@@ -4,6 +4,8 @@ import { Observable, of } from 'rxjs';
 import {catchError, delay, map, tap} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
+import { Hospital } from '../models/hospital.model';
+import { Medico } from '../models/medico.model';
 import { Usuario } from '../models/usuario.model';
 
 
@@ -35,24 +37,40 @@ export class BusquedasService {
     );
   }
 
+  private transformarHospitales(resultados:any[]): Hospital[]{
+    return resultados;
+  }
+  
+  private transformarMedicos(resultados:any[]): Medico[]{
+    return resultados;
+  }
+
+  busqueGlobal(termino:string){
+    const url =`${base_url}/todo/${termino}`;
+    return this.http.get<any[]>(url,this.headers);
+  } 
+
+
    buscar(
     tipo: 'usuarios' | 'medicos' | 'hospitales',
     termino:string,
     ){
     
     const url =`${base_url}/todo/coleccion/${tipo}/${termino}`;
-    console.log(url);
     return this.http.get<any[]>(url,this.headers)
       .pipe(
         map((resp:any)=>{
           switch (tipo){
             case "usuarios":
               return this.transformarUsuario(resp.resultado)
+            case "hospitales":
+              return this.transformarHospitales(resp.resultado)  
+            case "medicos":
+                return this.transformarMedicos(resp.resultado)    
             default:
               return [];
           }
         })
       );
   }
-
 }

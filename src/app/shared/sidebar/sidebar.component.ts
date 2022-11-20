@@ -16,7 +16,7 @@ export class SidebarComponent implements OnInit {
   constructor(
     private usuarioService:UsuarioService,
     private router:Router,
-    private sidebarService:SidebarService) { 
+    public sidebarService:SidebarService) { 
     this.menuItems=this.sidebarService.menu;
     this.usuario = usuarioService.usuario;
   }

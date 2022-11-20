@@ -36,6 +36,10 @@ export class UsuarioService {
     return this.usuario.uid || '';
    }
 
+   get role(): 'ADMIN_ROLE' | 'ADMIN_ROLE' | any {
+    return this.usuario.role;
+   }
+
    get headers(){
     return {
         headers:{
@@ -52,9 +56,15 @@ export class UsuarioService {
   }
 
 
+  guardarLocalStorage(token:string,menu:any){
+    localStorage.setItem('token',token);
+    localStorage.setItem('menu',JSON.stringify(menu));
+  }
+
   logout(){
     try {
       localStorage.removeItem('token');
+      localStorage.removeItem('menu');
       google.accounts.id.revoke('jorgedesarrollo717@gmail.com',()=>{
         this.ngZone.run(()=>{
           this.router.navigateByUrl('/login');
@@ -79,7 +89,8 @@ export class UsuarioService {
       map((resp:any)=>{
         const {email,google,nombre,role,img='',uid} = resp.usuario;
         this.usuario=new Usuario(nombre,email,'',img,google,role,uid);
-        localStorage.setItem('token',resp.token);
+        this.guardarLocalStorage(resp.token,resp.menu);
+    
         return true;
       }),
       map(resp=>true),
@@ -94,6 +105,7 @@ export class UsuarioService {
     .pipe(
       tap((resp:any)=>{
         localStorage.setItem('token',resp.token);
+        localStorage.setItem('menu',resp.menu);
       })
     );
   }
@@ -116,7 +128,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`,formData)
     .pipe(
       tap((resp:any)=>{
-        localStorage.setItem('token',resp.token);
+        this.guardarLocalStorage(resp.token,resp.menu);
       })
     );
   }
@@ -125,7 +137,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`,{token})
     .pipe(
       tap((resp:any)=>{
-        localStorage.setItem('token',resp.token);
+        this.guardarLocalStorage(resp.token,resp.menu);
       })
     );
   }

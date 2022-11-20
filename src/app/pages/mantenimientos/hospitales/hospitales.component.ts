@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { delay, Subscription } from 'rxjs';
 import { Hospital } from 'src/app/models/hospital.model';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 import { HospitalService } from 'src/app/services/hospital.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 import Swal from 'sweetalert2';
@@ -10,7 +12,7 @@ import Swal from 'sweetalert2';
   templateUrl: './hospitales.component.html',
   styleUrls: ['./hospitales.component.css']
 })
-export class HospitalesComponent implements OnInit {
+export class HospitalesComponent implements OnInit,OnDestroy {
   
   public hospitales:Hospital[]=[];
   public cargando:boolean=true;
@@ -18,7 +20,8 @@ export class HospitalesComponent implements OnInit {
 
   constructor(
     private modalImagenService:ModalImagenService,
-    private hospitalService:HospitalService) { }
+    private hospitalService:HospitalService,
+    private busquedasService:BusquedasService) { }
 
   ngOnInit(): void {
     this.cargarHospitales();
@@ -26,7 +29,28 @@ export class HospitalesComponent implements OnInit {
       .pipe(delay(600))
       .subscribe(img=>this.cargarHospitales());
   }
+  
+  ngOnDestroy(): void {
+    this.imgSubs?.unsubscribe();
+  }
 
+
+  buscarTermino(termino: string){
+    if(termino.length === 0){
+      return this.cargarHospitales();
+    }
+
+    this.busquedasService.buscar('hospitales',termino)
+        .subscribe(
+          (resp:any)=>{
+            this.hospitales=resp;
+          },
+          error=>{
+            console.log(error);
+          }
+        ) 
+
+  }
 
   guardarCambios(hospital:Hospital){
     this.hospitalService.actualizarHospital(hospital._id ?? '',hospital.nombre)

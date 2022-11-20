@@ -6,7 +6,9 @@
                 <input 
                     type="text"
                     class="form-control"
-                    placeholder="Buscar Hospital"/>
+                    placeholder="Buscar Hospital"
+                    #txtTermino
+                    (keyup)="buscarTermino(txtTermino.value)"/>
             
             </div>
         </div>
